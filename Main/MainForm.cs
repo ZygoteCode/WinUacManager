@@ -99,11 +99,11 @@ public partial class MainForm : MetroForm
     {
         try
         {
-            Process.Start("https://github.com/GabryB03/WinUacManager/");
+            Process.Start("https://github.com/ZygoteCode/WinUacManager/");
         }
         catch
         {
-            MessageBox.Show("https://github.com/GabryB03/WinUacManager/", "WinUacManager",
+            MessageBox.Show("https://github.com/ZygoteCode/WinUacManager/", "WinUacManager",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
