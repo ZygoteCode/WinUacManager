@@ -1,90 +1,54 @@
-﻿public class WinUacControl
+﻿using System;
+
+public class WinUacControl
 {
+    private const string UacRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
+
     public static void EnableUserAccountControl()
     {
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableVirtualization",
-            1);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableInstallerDetection",
-            1);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "PromptOnSecureDesktop",
-            1);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableLUA",
-            1);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableSecureUIAPaths",
-            1);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ConsentPromptBehaviorAdmin",
-            5);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ValidateAdminCodeSignatures",
-            0);
-        WindowsUtils.SetDWord(
-          @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-          "EnableUIADesktopToggle",
-          0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ConsentPromptBehaviorUser",
-            3);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "FilterAdministratorToken",
-            0);
+        SetUacRegistryKey("EnableLUA", 1);
+        SetUacRegistryKey("PromptOnSecureDesktop", 1);
+        SetUacRegistryKey("ConsentPromptBehaviorAdmin", 5);
+        SetUacRegistryKey("ConsentPromptBehaviorUser", 3);
+        SetUacRegistryKey("EnableVirtualization", 1);
+        SetUacRegistryKey("EnableInstallerDetection", 1);
+        SetUacRegistryKey("FilterAdministratorToken", 0);
+        SetUacRegistryKey("EnableAdminApprovalMode", 1);
+        SetUacRegistryKey("ValidateAdminCodeSignatures", 1);
+        SetUacRegistryKey("EnableSecureUIAPaths", 1);
+        SetUacRegistryKey("EnableUIADesktopToggle", 0);
+        SetUacRegistryKey("LocalAccountTokenFilterPolicy", 0);
+        SetUacRegistryKey("EnableSwitchToRedesignedSafeDesktop", 1);
+        SetUacRegistryKey("InteractiveLogonFirst", 0);
     }
 
     public static void DisableUserAccountControl()
     {
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableVirtualization",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableInstallerDetection",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "PromptOnSecureDesktop",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableLUA",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableSecureUIAPaths",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ConsentPromptBehaviorAdmin",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ValidateAdminCodeSignatures",
-            0);
-          WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "EnableUIADesktopToggle",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "ConsentPromptBehaviorUser",
-            0);
-        WindowsUtils.SetDWord(
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-            "FilterAdministratorToken",
-            0);
+        SetUacRegistryKey("EnableLUA", 0);
+        SetUacRegistryKey("PromptOnSecureDesktop", 0);
+        SetUacRegistryKey("ConsentPromptBehaviorAdmin", 0);
+        SetUacRegistryKey("ConsentPromptBehaviorUser", 0);
+        SetUacRegistryKey("EnableVirtualization", 0);
+        SetUacRegistryKey("EnableInstallerDetection", 0);
+        SetUacRegistryKey("FilterAdministratorToken", 1);
+        SetUacRegistryKey("EnableAdminApprovalMode", 0);
+        SetUacRegistryKey("ValidateAdminCodeSignatures", 0);
+        SetUacRegistryKey("EnableSecureUIAPaths", 0);
+        SetUacRegistryKey("EnableUIADesktopToggle", 0);
+        SetUacRegistryKey("LocalAccountTokenFilterPolicy", 1);
+        SetUacRegistryKey("EnableSwitchToRedesignedSafeDesktop", 0);
+        SetUacRegistryKey("InteractiveLogonFirst", 0);
+    }
+
+    private static void SetUacRegistryKey(string keyName, int value)
+    {
+        try
+        {
+            WindowsUtils.SetDWord(UacRegistryPath, keyName, value);
+        }
+        catch
+        {
+
+        }
     }
 }

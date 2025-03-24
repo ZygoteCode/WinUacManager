@@ -40,10 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Guna.UI2">
-      <HintPath>..\Cartella di Gabry\Materiale di programmazione\Guna.UI2.dll</HintPath>
+      <HintPath>..\..\Guna.UI2.dll</HintPath>
     </Reference>
     <Reference Include="MetroSuite 2.0">
-      <HintPath>..\Cartella di Gabry\Materiale di programmazione\MetroSuite 2.0.dll</HintPath>
+      <HintPath>..\..\MetroSuite 2.0.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

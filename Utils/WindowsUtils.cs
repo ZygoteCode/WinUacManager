@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using Microsoft.Win32;
 
 public class WindowsUtils
 {
@@ -35,11 +36,17 @@ public class WindowsUtils
         }
     }
 
-    public static void SetDWord(string key, string name, int value)
+    public static void SetDWord(string keyPath, string valueName, int value)
     {
         try
         {
-            Registry.LocalMachine.CreateSubKey(key).SetValue(name, value.ToString(), RegistryValueKind.DWord);
+            using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(keyPath, true))
+            {
+                if (registryKey != null)
+                {
+                    registryKey.SetValue(valueName, value, RegistryValueKind.DWord);
+                }
+            }
         }
         catch
         {
@@ -48,7 +55,13 @@ public class WindowsUtils
 
         try
         {
-            Registry.CurrentUser.CreateSubKey(key).SetValue(name, value.ToString(), RegistryValueKind.DWord);
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(keyPath, true))
+            {
+                if (registryKey != null)
+                {
+                    registryKey.SetValue(valueName, value, RegistryValueKind.DWord);
+                }
+            }
         }
         catch
         {
